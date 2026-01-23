@@ -1,6 +1,6 @@
-public package Practica_3_1;
+ package Practica_3_1;
 
-class Agenda {
+public class Agenda {
 
     //Contacto[] contactos = new Contacto [100]; 
 
