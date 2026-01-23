@@ -74,7 +74,7 @@ public class Reloj {
 
     public String dimeHora12(){
         if (hora >= 12) {
-            return hora + "pm:" + minuto + ":" + segundo;         
+            return (hora-12) + "pm:" + minuto + ":" + segundo;         
         } else{
             return hora + "am:" + minuto + ":" + segundo;
         }
@@ -89,11 +89,13 @@ public class Reloj {
         if (segundo == 60) {
             segundo = 0; 
             minuto += 1; 
-        } else if(minuto == 60){
-            minuto = 0; 
-            hora += 1; 
-        } else if(hora > 24){
-            hora = 0; 
+            if( minuto == 60){
+                minuto = 0; 
+                hora += 1; 
+                if (hora > 24) {
+                    hora = 0; 
+                }
+            }
         }
 
         return hora + ":" + minuto + ":" + segundo;
