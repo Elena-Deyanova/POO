@@ -31,7 +31,12 @@ public class Contacto {
     }
 
     public void setCorreo_electronico(String correo_electronico) {
-        this.correo_electronico = correo_electronico;
+        if (correo_electronico.isEmpty()) {
+            System.err.println("No se puede dejar el nombre vacío");
+        } else {
+            this.correo_electronico = correo_electronico;
+        }
+        
     }
 
     public String getNumero() {
@@ -39,10 +44,12 @@ public class Contacto {
     }
 
     public void setNumero(String numero) {
-        if (numero = ) {
-            
+        if (nombre.isEmpty()) {
+            System.err.println("No se puede dejar el nombre vacío");
+        } else{
+            this.numero = numero;
         }
-        this.numero = numero;
+        
     }
     
     //Metodos 
