@@ -40,7 +40,7 @@ public class Banco {
 
     }
 
-    boolean agregar_cuenta(String nombre, boolean saldo){
+    boolean agregar_cuenta(String nombre, double saldo){
         for(Cuenta c : cuentas){
             if (c.getTitular().equalsIgnoreCase(nombre)) {
                 System.err.println("Un titular con este nombre ya existe. ");
@@ -49,7 +49,7 @@ public class Banco {
         }
 
         cuentas.add(new Cuenta(nombre, saldo)); 
-        //contador++; 
+        
 
         return true; 
     }
