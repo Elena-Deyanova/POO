@@ -69,29 +69,37 @@ public class Banco {
     }
 
     boolean transferencia(String nombre1, String nombre2,double dinero ){
-        for (int i = 0; i < cuentas.size(); i++) {
-                if (!dineroCorrecto(dinero) && (!nombre1.equalsIgnoreCase(nombre2))) {
-                    /*
-                    todo comprobado
-                    en el UI se pide la cantidad de dinero y se comprueba ahi
-
-                    se coge la cantidad de dinero de la primera cuenta y se revisa que el saldo sea mayor a -100
-                    se actualiza el nuevo saldo de nombre1 
-
-                    y se suma al saldo y se actualiza de nombre2 
-                    */
-
-                    double dinero_actualizado = cuentas.get(i).getSaldo() - dinero; 
-                    if (dinero_actualizado < -100) {
-                        System.out.println("La cantidad final es menor a -100. No se ha podido realizar la operacion. ");
-                        return false; 
-                    }
-                    return true; 
+        int pos = 0, pos2 = 0; 
 
 
+        for (int i = 0; i < cuentas.size(); i++) { // se recorre el arrayList
+            if (cuentas.get(i).getTitular().equalsIgnoreCase(nombre1)) { // se mira la posicion del nombre de la cuenta origen
+                pos = i;  // se guarda la posicion
+            } else {
+                System.out.println("No se encuentran cuentas con ese nombre.");
+                return false; 
             }
-            return true; 
+            if (cuentas.get(i).getTitular().equalsIgnoreCase(nombre2)) { // se mira la posicion del nombre de la cuenta desitno
+                pos2 = i;  // se guarda la posicion 2
+            }else {
+                System.out.println("No se encuentran cuentas con ese nombre.");
+                return false; 
+            }
         }
+
+            if (!dineroCorrecto(dinero) && (!nombre1.equalsIgnoreCase(nombre2))) {
+                double saldo_final_origen = cuentas.get(pos).getSaldo() - dinero; 
+                cuentas.get(pos).setSaldo(saldo_final_origen);
+
+                double saldo_final_destino = cuentas.get(pos2).getSaldo() + dinero; 
+
+                cuentas.get(pos2).setSaldo(saldo_final_destino);
+            } else{
+                return false; 
+            }
+        
+     return true; 
+
     }
 
     boolean agregar_cuenta(String nombre, double saldo){

@@ -14,7 +14,7 @@ public class Main {
         banco.agregar_cuenta("adriana", 200);
         banco.agregar_cuenta("tati", 150);
 
-        String nombre; 
+        String nombre, nombre2; 
 
         double dinero; 
         int opcion; 
@@ -57,8 +57,17 @@ public class Main {
                     banco.retirar_dinero(nombre, dinero);
                     break;
                 case 4:
-                //transferemcia
-                    break;
+                    System.out.print("Dime el nombre de la cuenta de origen: ");
+                    nombre = lector.nextLine(); 
+                    System.out.print("Dime el nombre de la cuenta destino: ");
+                    nombre2 = lector.nextLine(); 
+
+                    System.out.print("Dime cuanto dinero quieres transferir: ");
+                    dinero = lector.nextInt(); 
+
+                    banco.transferencia(nombre, nombre2, dinero); 
+
+                    break; 
                 case 5: 
                     System.out.print("Dime el nombre del titular de la cuenta: ");
                     nombre = lector.nextLine(); 
