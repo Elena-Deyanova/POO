@@ -1,23 +1,28 @@
 package Ejercicio_Banco;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     static Scanner lector = new Scanner(System.in); 
+    
 
     public static void main(String[] args) {
+        Banco banco = new Banco();
+        banco.agregar_cc("Lionel", 100);
+        
         int opcion; 
+
 
 
         System.out.println("BIENVENIDO A TU BANCO!!");
         do{
-            menu(); 
+            Banco.menu(); 
             opcion = lector.nextInt(); 
             lector.nextLine(); 
 
             switch (opcion) {
                 case 1:
-                    //muestra los clientes del banco con toda su informacion. 
+                    banco.ver_clientes(); 
                     break;
                 case 2: 
 
@@ -63,20 +68,6 @@ public class Main {
         
     }
 
-    static void menu(){
-        System.out.println("1. Ver clientes.");
-        System.out.println("2. Ingresar dinero.");
-        System.out.println("3. Retirar dinero");
-        System.out.println("4. Transferencia.");
-        System.out.println("5. Agregar cliente.");
-        System.out.println("6. Eliminar cliente.");
-        System.out.println("7. Agregar cuenta a cliente.");
-        System.out.println("8. Eliminar cuenta de cliente.");
-        System.out.println("9. Mostrar cuenta de cliente.");
-        System.out.println("10. Mostrar movimientos de cuenta de cliente.");
-        System.out.println("11. Buscar cuenta.");
-        System.out.println("12. Mostrar morosos");
-        System.out.println("0. Salir");
-    }
+    
 
 }
