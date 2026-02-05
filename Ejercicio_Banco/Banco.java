@@ -4,13 +4,9 @@ import java.util.ArrayList;
 
 public class Banco {
     
-    ArrayList<Cuenta> cuentas = new ArrayList<>();
-    
-    /*
-    Falla que cuando pones el nombre de la cuenta la cual quieres hacer la operacion. Esta no cuena con el nombre. Sino que lo hace al primero que hay almacenado
-    */
+    ArrayList<Cuenta> cuentas = new ArrayList<>(); // se inician las cuentas
 
-    static void menu(){
+    static void menu(){ // menu del banco. El cual se va a printar 
         System.out.println("\n1. Ver cuentas.");
         System.out.println("2. Ingresar dinero.");
         System.out.println("3. Retirar dinero");
@@ -24,83 +20,100 @@ public class Banco {
         System.out.print("Tu opcion: ");
     }
 
-    public void ver_cuentas(){
-        int contador = 0; 
+    public void ver_cuentas(){ // metodo para printar las cuentas usando un foreach
+        int contador = 1; 
         for (Cuenta c : cuentas) {
             System.out.print(contador + ". ");
             c.imprimir();
-            contador++; 
+            contador++; // se usa el contador, para que haya un contador de todas las cuentas
         }   
     }
 
-    boolean ingresar_dinero(String nombre, double dinero){
+    boolean ingresar_dinero(String nombre, double dinero){ // metodo para ingresar dinero
+        boolean ingresado = false;  // se crea un boolean para luego mostrar resultados correctos   
 
-        for (int i = 0; i < cuentas.size(); i++) {
+        for (int i = 0; i < cuentas.size(); i++) { // 
             if (cuentas.get(i).getTitular().equalsIgnoreCase(nombre)) {
-                if (!dineroCorrecto(dinero)) {
-                     cuentas.get(i).setSaldo(cuentas.get(i).getSaldo() + dinero);
-                } else{
-                    System.out.println("No se ha encontrado ninguna cuenta con ese nombre.");
+                if (dineroCorrecto(dinero)) {
+                    cuentas.get(i).setSaldo(cuentas.get(i).getSaldo() + dinero);
+                    ingresado = true; 
+                    return true; 
                 }
+                ingresado = false; 
             }
         }
-        return false; 
+        if (ingresado == false) {
+                System.out.println("No se han encontrado cuentas con ese nombre. ");
+                return false; 
+            }
+        return true; 
     }
 
     boolean retirar_dinero(String nombre, double dinero){
-
+        int pos = -1; 
+        boolean encontrado = false; 
+        double saldo_ultimo = 0; 
 
         for (int i = 0; i < cuentas.size(); i++) {
             if (cuentas.get(i).getTitular().equalsIgnoreCase(nombre)) {
-                 double dinero_actualizado = cuentas.get(i).getSaldo() - dinero; 
-                        if (dinero_actualizado < -100) {
-                            System.out.println("La cantidad final es menor a -100. No se ha podido realizar la operacion. ");
-                            return false; 
-                        }
-                        
-                        cuentas.get(i).setSaldo(dinero_actualizado);
-                        System.out.println("Dinero actualizado");
-                        return true;
-            } else{
-                System.out.println("No se ha encontrado ninguna cuenta con ese nombre.");
-            }
+                pos = i; 
+                saldo_ultimo = cuentas.get(i).getSaldo() - dinero; 
+                encontrado = true; 
+            } 
         }
-        return false; 
+        if (!encontrado) {
+            System.out.println("No se ha encontrado ninguna cuenta con ese nombre.");
+            return false; 
+        }
+        if (saldo_ultimo < -100) {
+            System.out.println("La cuenta no se puede quedar en un saldo menor a -100. ");
+            return false; 
+        }
+        
+
+        cuentas.get(pos).setSaldo(saldo_ultimo);
+        return true;
+        
     }
 
     boolean transferencia(String nombre1, String nombre2,double dinero ){
-        int pos = 0, pos2 = 0; 
+        int pos = -1, pos2 = -1; 
+
+        if (nombre1.equalsIgnoreCase(nombre2)) {
+            System.out.println("No se puede poner el mismo nombre en las cuentas. ");
+            return false; 
+        }
+
+        if (!dineroCorrecto(dinero)) {
+            System.out.println("No se puede introducir una cantidad negativa. ");
+            return false; 
+        }
 
 
-        for (int i = 0; i < cuentas.size(); i++) { // se recorre el arrayList
+        for (int i = 0; i < cuentas.size(); i++) {
             if (cuentas.get(i).getTitular().equalsIgnoreCase(nombre1)) { // se mira la posicion del nombre de la cuenta origen
                 pos = i;  // se guarda la posicion
-            } else {
-                System.out.println("No se encuentran cuentas con ese nombre.");
-                return false; 
             }
             if (cuentas.get(i).getTitular().equalsIgnoreCase(nombre2)) { // se mira la posicion del nombre de la cuenta desitno
                 pos2 = i;  // se guarda la posicion 2
-            }else {
-                System.out.println("No se encuentran cuentas con ese nombre.");
-                return false; 
             }
         }
+        if (pos == -1 || pos2 == -1) {
+            System.out.println("No se han encontrado las cuentas correspondientes.");
+            return false;
+        } 
 
-            if (!dineroCorrecto(dinero) && (!nombre1.equalsIgnoreCase(nombre2))) {
-                double saldo_final_origen = cuentas.get(pos).getSaldo() - dinero; 
-                cuentas.get(pos).setSaldo(saldo_final_origen);
+        if (cuentas.get(pos).getSaldo() - dinero < -100) {
+            System.out.println("No se puede hacer la tranferencia en la cuenta origen. ");
+            return false; 
+        }
 
-                double saldo_final_destino = cuentas.get(pos2).getSaldo() + dinero; 
-
-                cuentas.get(pos2).setSaldo(saldo_final_destino);
-            } else{
-                return false; 
-            }
-        
-     return true; 
-
+        cuentas.get(pos).setSaldo(cuentas.get(pos).getSaldo() - dinero);
+        cuentas.get(pos2).setSaldo(cuentas.get(pos2).getSaldo() + dinero);
+             
+        return true; 
     }
+
 
     boolean agregar_cuenta(String nombre, double saldo){
         for(Cuenta c : cuentas){
@@ -125,20 +138,43 @@ public class Banco {
         return false; 
     }
 
-    void buscar_cuenta(String nombre, int saldo){
-         
+    void buscar_cuenta(String nombre){
+        String nombreLower = nombre.toLowerCase(); 
+        boolean encontrado = false; 
+         for (Cuenta c : cuentas) {
+            if (c.getTitular().toLowerCase().contains(nombreLower)) {
+                c.imprimir();
+                encontrado = true; 
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No se han encontrado cuentas que contengan " + nombre);
+        }
+
     }
 
     void mostrar_morosos(){
+        boolean morosos = false; 
+        for (Cuenta c : cuentas) {
+            if (c.getSaldo() < 0) {
+                c.imprimir();
+                morosos = true; 
+            }
+        }
+
+        if (!morosos) {
+            System.out.println("No hay ningun moroso");
+        }
 
     }
 
     boolean dineroCorrecto (double dinero){
-        if (dinero < 0) {
+        if (dinero <= 0) {
             System.out.println("La cantidad no puede ser menor o igual a 0");
-            return true; 
+            return false; 
         } 
-        return false; 
+        return true; 
     }
     
 }
