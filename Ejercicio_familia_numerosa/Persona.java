@@ -3,12 +3,11 @@ package Ejercicio_familia_numerosa;
 public class Persona {
     private String nombre, apellidos; 
     private int edad; 
-    Persona conyuge; 
-    Persona progenitorA; 
-    Persona progenitorB; 
-    Persona hermanos; 
-    Persona hijos;
-
+    private Persona conyuge;
+    //Persona progenitorA;
+    //Persona progenitorB; 
+    //Persona hermanos; 
+    //Persona hijos;
     
     public Persona(String nombre, String apellidos, int edad) {
         this.nombre = nombre;
@@ -16,7 +15,6 @@ public class Persona {
         this.edad = edad;
     }
 
-    
     public String getNombre() {
         return nombre;
     }
@@ -36,6 +34,10 @@ public class Persona {
         this.edad = edad;
     } 
 
+    public void setConyuge(Persona conyuge) {
+        this.conyuge = conyuge;
+        conyuge.setConyuge(this);
+    }
 
 
     
