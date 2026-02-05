@@ -35,7 +35,7 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return "Cuenta [titular=" + titular + ", saldo=" + saldo + "]";
+        return titular + " Saldo: " + saldo + "€";
     } 
 
     public void imprimir(){
