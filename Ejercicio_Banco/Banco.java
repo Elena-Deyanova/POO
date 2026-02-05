@@ -23,7 +23,6 @@ public class Banco {
     public void ver_clientes(){
         for (Cuenta c : cuentas) {
             c.imprimir();
-            //System.out.println(c);
         }
         
     }
