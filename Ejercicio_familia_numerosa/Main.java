@@ -5,9 +5,15 @@ public class Main {
         
         Persona juan = new Persona("Juan", "ABC", 20);
         Persona maria = new Persona("Maria", "ABC", 20);
+        Persona pablo = new Persona("Pablo", "ABC", 20);
+        Persona malena = new Persona("Malena", "ABC", 20);
+
 
         juan.setConyuge(maria);
-        //maria.setConyuge(juan);
+        juan.serProgenitorB(pablo);
+        juan.addHijo(pablo);
 
+        juan.printInfoFamilia();
     }
 }
+
