@@ -18,6 +18,8 @@ public class Persona {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
+        this.hermanos = new ArrayList<>(); 
+        this.hijos = new ArrayList<>(); 
     }
 
     //====GETTERS====
@@ -63,12 +65,11 @@ public class Persona {
     } 
 
     public void setProgenitorA(Persona a){
-        this.setProgenitorA(a);
-        
+        this.progenitorA = a; 
     }
 
     public void setProgenitorB(Persona b){
-        this.setProgenitorB(b);
+        this.progenitorB = b;   
     }
 
     public void setConyuge(Persona conyuge) {
@@ -84,11 +85,41 @@ public class Persona {
 
 
     ////====METODOS====
-    public void addHijo (Persona hijo){
-        setProgenitorA(this);
+    
+        
 
+    public void addHijo (Persona hijo){
+        if (hijo.getProgenitorA() == null) {
+            hijo.setProgenitorA(this);
+        } else if (hijo.getProgenitorB() == null) {
+            hijo.setProgenitorB(this);
+        }
+        hijos.add(hijo); 
+
+        for (Persona h : hijos) {
+        if (h != hijo && !h.getHermanos().contains(hijo)) {
+            h.addHermano(hijo);
+            }
+        }
+    }
+    public void addHermano(Persona hermano) {
+        if (!hermanos.contains(hermano)) {
+            hermanos.add(hermano);
+        }
+        if (!hermano.getHermanos().contains(this)) {
+            hermano.getHermanos().add(this);
+        }
+
+    
+        if (this.progenitorA == null) this.progenitorA = hermano.getProgenitorA();
+        if (this.progenitorB == null) this.progenitorB = hermano.getProgenitorB();
+
+        if (hermano.getProgenitorA() == null) hermano.setProgenitorA(this.progenitorA);
+        if (hermano.getProgenitorB() == null) hermano.setProgenitorB(this.progenitorB);
 
     }
+
+
 
     @Override
     public String toString() {
@@ -113,7 +144,7 @@ public class Persona {
         String res = "";
         for (Persona p : lista) {
             if (p != null)
-                res += p.getNombre() + ", ";
+                res += p.getNombre() + " " + p.getApellidos() + ", ";
         }
 
         if (res.equals("")) return "Ninguno";

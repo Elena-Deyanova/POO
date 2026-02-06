@@ -15,13 +15,17 @@ public class Main {
         ned.addHijo(jon); //Con esto rob también será hermano de jon
         cat.addHijo(rob);
         cat.addHijo(jon);
-        //sansa.addHermano(rob);
+        sansa.addHermano(rob);
 
         ned.printInfoFamilia();
-        //cat.printInfoFamilia();
+        System.out.println(" ");
+        cat.printInfoFamilia();
+        System.out.println(" ");
         rob.printInfoFamilia();
-        //jon.printInfoFamilia();
-        //sansa.printInfoFamilia();
+        System.out.println(" ");
+        jon.printInfoFamilia();
+        System.out.println(" ");
+        sansa.printInfoFamilia();
 
     }
 }
