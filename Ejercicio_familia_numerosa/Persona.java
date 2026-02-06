@@ -63,11 +63,12 @@ public class Persona {
     } 
 
     public void setProgenitorA(Persona a){
-        this.progenitorA = a; 
+        this.setProgenitorA(a);
+        
     }
 
-    public void serProgenitorB(Persona b){
-        this.progenitorB = b; 
+    public void setProgenitorB(Persona b){
+        this.setProgenitorB(b);
     }
 
     public void setConyuge(Persona conyuge) {
@@ -84,7 +85,9 @@ public class Persona {
 
     ////====METODOS====
     public void addHijo (Persona hijo){
-        hijo = setProgenitorA(this.getNombre());; 
+        setProgenitorA(this);
+
+
     }
 
     @Override

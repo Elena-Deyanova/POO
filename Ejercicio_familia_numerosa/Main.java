@@ -3,17 +3,26 @@ package Ejercicio_familia_numerosa;
 public class Main {
     public static void main(String[] args) {
         
-        Persona juan = new Persona("Juan", "ABC", 20);
-        Persona maria = new Persona("Maria", "ABC", 20);
-        Persona pablo = new Persona("Pablo", "ABC", 20);
-        Persona malena = new Persona("Malena", "ABC", 20);
+        Persona ned = new Persona("Ned", "Stark", 50);
+        Persona cat = new Persona("Catelyn", "Tully", 45);
+        Persona rob = new Persona("Rob", "Stark", 30);
+        Persona jon = new Persona("Jon", "Snow", 28);
+        Persona sansa = new Persona("Sansa", "Stark", 20);
 
 
-        juan.setConyuge(maria);
-        juan.serProgenitorB(pablo);
-        juan.addHijo(pablo);
+        ned.setConyuge(cat);
+        ned.addHijo(rob);
+        ned.addHijo(jon); //Con esto rob también será hermano de jon
+        cat.addHijo(rob);
+        cat.addHijo(jon);
+        //sansa.addHermano(rob);
 
-        juan.printInfoFamilia();
+        ned.printInfoFamilia();
+        //cat.printInfoFamilia();
+        rob.printInfoFamilia();
+        //jon.printInfoFamilia();
+        //sansa.printInfoFamilia();
+
     }
 }
 
